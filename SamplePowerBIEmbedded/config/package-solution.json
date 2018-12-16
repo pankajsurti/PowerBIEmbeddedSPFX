@@ -1,0 +1,31 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "sample-power-bi-embedded-client-side-solution",
+    "id": "ce95403b-23e3-4bfa-bc0f-dcaa272f64e5",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "webApiPermissionRequests": [
+      {
+        "resource": "Power BI Service",
+        "scope": "Group.Read.All"
+      },
+      {
+        "resource": "Power BI Service",
+        "scope": "Dataset.Read.All"
+      },
+      {
+        "resource": "Power BI Service",
+        "scope": "Report.Read.All"
+      },
+      {
+        "resource": "Power BI Service",
+        "scope": "Dashboard.Read.All"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/sample-power-bi-embedded.sppkg"
+  }
+}
