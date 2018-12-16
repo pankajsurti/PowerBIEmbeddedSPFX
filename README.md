@@ -1,6 +1,6 @@
 # Power BI Embedded Deep Dive
 
-The following steps will guide you **Power BI Embedded** SPFx Web Part. 
+The following steps will guide you to build **Power BI Embedded** SPFx Web Part. 
 
 
 ## Getting started with writing SPFx for Power BI Embedded
@@ -139,23 +139,29 @@ This file has one method 'embedReport'. It constructs config for powerbi-client 
 		window.powerbi.embed(embedContainer, config);
       }
 
+#### Step#5: Time to modify the 
+
+Copy SamplePowerBiEmbeddedWebPart file from [here](https://github.com/pankajsurti/PowerBIEmbeddedSPFX/blob/master/SamplePowerBIEmbedded/src/webparts/samplePowerBiEmbedded/SamplePowerBiEmbeddedWebPart.ts)
+
+**Explanation of Web Part Code**
+
+- Import PropertyPaneDropdown in the 
+- The 'onPropertyPaneConfigurationStart' method is called for pane initialization during web part edit. The first steps is to check whether workspaces and reports being fetched. If not call method 'fetchWorkspaceOptions'. 
+- The 'fetchWorkspaceOptions' method makes the call to the 'PowerBiService.GetWorkspaces'. 
+- The same pattern is followed to get the reports for an user selected work space.
+- Once user makes the selection for the work space and report in the pane. The final call is to hand over to the render which in turn calls the 'PowerBiEmbeddingService.embed'.
+- The pane is using the cascading drop down. Please refer [Use cascading dropdowns in web part properties](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/guidance/use-cascading-dropdowns-in-web-part-properties) 
+for more details.
 
 
+## Reference
 
+**The following link will explain further the AADHttpClient. **
 
+[Connect to Azure AD-secured APIs in SharePoint Framework solutions](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/use-aadhttpclient#manage-permission-requests)
 
+**The following link has the URLs for the sovereign clouds such as Government Community Cloud (GCC) etc. **
 
-
-
-
-
-
-
-
-
-
-
-
-
+[Tutorial: Embed a Power BI dashboard, tile, or report into your application for sovereign clouds](https://docs.microsoft.com/en-us/power-bi/developer/embed-sample-for-customers-sovereign-clouds)
 
 
