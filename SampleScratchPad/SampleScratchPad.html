@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Sample Scratch Pad</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link href="css/app.css" rel="stylesheet" />
+  <script src="scripts/jquery.js"></script>
+  <script src="scripts/powerbi.js"></script>
+</head>
+
+<body style="margin:0;padding:0;background-color:#EEE;">
+
+  <div id="toolbar">
+    <button type="button" id="toggleEdit" style="font-size:14px" >Toggle Edit Mode</button>
+    <button type="button" id="fullScreen" style="font-size:14px">Full Screen</button>
+  </div>
+
+  <div id="reportContainer" />
+
+  <script>
+
+    // data required for embedding Power BI report
+    var embedReportId = "";
+    var embedGroupId = "";
+	var embedUrl = "https://app.powerbi.com/reportEmbed?reportId=f6bfd646-b718-44dc-a378-b73e6b528204&groupId=be8908da-da25-452e-b220-163f52476cdd&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLVVTLU5PUlRILUNFTlRSQUwtcmVkaXJlY3QuYW5hbHlzaXMud2luZG93cy5uZXQifQ%3d%3d";
+    //var embedUrl = "https://app.powerbi.com/reportEmbed?reportId=" + embedReportId + "&groupId=" + embedGroupId;
+    var embedToken = "H4sIAAAAAAAEAC1Wxa7FCnL8l7d1JDNFmoWZmb2zj5mZovx7bkazb3V3lVTwP__Y2TvMWfHPf__jU7aKxtaSJD72lcNrmHq0o32vwAuEfXr_ISQQF36GBV55NgOg5FfLcyyZDzmkUVeOcXSkl2HMCXYLpvWBNkMKPFSiLwGISjfrMF5UFu6aNCYDtnYmA9bixwkzhFM1sCS1zbr2DoV5c_cK71-mgM4CeKJEa1wJoiCvjdfVuLWEYKCBAcamVIgqrBwiMVdAIM58lupwj1lT9pvEp6G3cCnydoqeMlMxIUgjdMOOldRHCloEqh4Wriik_2EjJPvsJwJl4xbvrlxA3NLHphJvI8bx21tuqR8o8m1ncp21OniCOe9TKnFRtugCGlNydw8rzEv3KvhRR8q2t81qNFU9u5MEGDKtJAOPvh6JLFWqjram0DKiaT4L5EuM4rNKyFM8GQh2BbrkazpSIk0W8O6VnO3Z0S06p_waz3LR3RIh1Sz8RK3G6L9pEbARcjuUwSP9m_5AAwqo-y0LBXdZOygPVwLSyjT7s3Ky7HR4hmPsG1XPVFVTAUw0u8Cuo09XQlGiEESiBGJ5ahbSwMhlypDoRH5n0g9GacvpLLRKbv8Wmq04i1VfKcj2gaLJGNVnzanjs75E2mn9sFqjMqqy0yE1y4DQCCjLGSOaMjNo5EO_s7QOv8cXI4cdu3-h1Lm6jt1tcqzgCf6o59iL5oZBH-7PgJhopk9mu9sDBKbgWRBiYceOkecFsnuHl7QZ8bdJRlNTF6U_m0X4lBsKJp5ekDBdZd2K9SfLnorgw9TZbBugatX129qUy1H0_vmzLBvz9GFeB0SYVGLMXQcfVGdmetbsuBno6QsNY8FLzj7gPCQpwLvl4jYIQOauDIP2EM0JGG-9XpojKK9hL0eZpCcgh2_MiUPXe8swGps1UCzElr6oI-yClwONpnMnU6BuppeBxOsnzM1r3c4Xao3YZKTQVspymSnRAEdEG7WXV77-yrZE2bMvCzCnYHAtsuHxk0SIJ2jPWPeV9WyqDW8wC3nPGkoLfezekqVTbWMlU_LoPXJLenzjGOGv-gZL0CTkJG6t0hMBbhMXHPIRPlF7fuypigrNTp2TeC7VjJ1vhOoCjk6NZbh6ARQoVmNgoGYo_xNZCxLWvBpeRwzw_CewbeaNwCgY7cju8kf1BiHmqvVYbY-AufdRwdL8Xn1PqflyLABYV72JdO8HeF32Y2BBM7O9v8D-OdtZPIZiWZNtijKEoD8X0Ju5eg5f9GtONRrtEcKAEz34NH_UAlxcVgY-09iAfDQjlzkgMWySenYRAAILeN0LnCAIG5tcy2ewab0XJRLynril0gwJ4Z4ux_V0IcE707Tr9MDkjF-nZoe7din366fa6rvXeOfbcIHUdQzpzYJH_hMXW6hRg4JWQDbbT5QTPAhIiQWONQOjuf66FrhkTxg5QsX13uv4yzX2NtU60vj8Szz5CT1A0m3Qm9pcOiUmrmwlIBmA9x5FqgfVGYWsWkw-rNAx5SOtbhHaqD7UarQWFtHg43L0JumNtuRXDE0gdFwqg_wwoBEGAVDdMmjDF9nPw3wLoBQpri1lzLHtXKaetsU3V6bt_EDB7q6OHG3v5JZmG42IZHZVNT_1YjLSgWvnJS-_ML255cDJ-iKsoNlW7dTlGnfMFr1oCDXjdCJwldlBYb9-jb0tSd0HbGeEbvVd_PYwEaJh0M4GJHJduRb9nblaPycFPc5dQSD_lk6nj8_EYdRn6lYUm0QSswdxAuy_EqMB3WWVRaWsANJSvt9t1ApqSmlJJwSj-5rn5gLhNIXPkl7kmSwNw-hUM83SM7mE7crw1N3t3n9KOq7zCXTcIskwhsL-LBNTieBIOFbVyBQLlbhduklSU9eee_L4-Pd6N-TubDGSqHeZzPxhGJ04tsAcQjMDY68EL9SwoRB8L4nXvnf8Oc48gEcZ2_PSNyVJltCz87onDoBc_OSxgGQ8K7-7z8TOquJwnkCiPgn8fodfp0P7mF44mvt73xsA1FWht8Z1rOhZa7i8qUg_DHPunrXQcf0SbBHo5mZqwkamhRHEqxU6XPblTOZDTuzPZV9bZVwzPlxzEHSDE3ojbovQHc3CX61Hq2o1ob-MeitHDLIdDZbtMNTjP3Hn0SgsPiCIg9-FeM5OAtlfEkzSCSD43Dye6DKaadg3kJgHC6Ph8eKbj12LB4o0Uf_rX__81z_c9i7HrJXvX834NVLcrM7fv2x5xjYrnzgJZpdkRZQMKVTywBX0tBEqPgQDqQCNRRfF5kXDPmcaQ-G4q7K41VF-KdEwuL-ZdhdttWLVdDIY0jcfYJKQk7cULg44IQkbQ8tBKmBPcsr047Bm6FuTaruJtcn9Xadl4kaEpEDMYEdywoDvW1jetIWbkDiwgty0yJeGKJqoXsodrAFTkGY87k9CR34tR6tU6SOTW46bk-soARfSpT2UA55hmbV7Zc4yzQnY9TnVZiv5lqpC89ObIJ8G8bF4r0KfGtfFfLBxmsRvAIetIzhMozQZXi6Bjkxd8BMR2tuzweUFIy0-2iCIeeoCCCLfrX6ihAIr-D80v0tTbkr4x_IwIcpWmkgclX92bkZEj171_e8pr62n7Di38m_sdfbwdBFnxPYozq0b56cUBR_wTAwiFFTWeFYB3XzvC9zaz6zvc1oVC-oNIYqvwLYPPaWVDMfXq_gnaVvke7c-CKHNwtJfXpSZ3hEOW8LN957CBRr8VXV3rz8teVYWZfxFgs66Zc_umZtyCQD5PQR5oAMJKEc1zR-6I8N_40FngL1xsP1Nn3RGmAcCfxJysx9d_UokDRO4UBoznZeg1C6fBCseeb_9gevmZMbBBKamVtboAyFxhuKUr4MMR4qF5f66WkkGhBFvF1oZPSASo6r8WdkAcj4Vh7pPhT_WM3kMkrj0mZmtEN-3uBt_p9Phjfsu8Sw41aIQ7P1RCiZDF0MBbpD_p_l__w-ffR7OWgsAAA==";
+
+    // Get models object to access enums for embed configuration
+    var models = window['powerbi-client'].models;
+
+    var config = {
+      type: 'report',
+      id: embedReportId,
+      embedUrl: embedUrl,
+      accessToken: embedToken,
+      tokenType: models.TokenType.Embed,
+      permissions: models.Permissions.All,
+      viewMode: models.ViewMode.View,
+      settings: {
+        filterPaneEnabled: false,
+        navContentPaneEnabled: false
+      }
+    };
+
+    // Get a reference to the embedded report HTML element
+    var reportContainer = document.getElementById('reportContainer');
+
+    // Embed the report and display it within the div container.
+    var report = powerbi.embed(reportContainer, config);
+
+    var viewMode = "view";
+
+    $("#toggleEdit").click(function () {
+      viewMode = (viewMode == "view") ? "edit" : "view";
+      report.switchMode(viewMode);
+    });
+
+
+
+    $("#fullScreen").click(function () {
+      report.fullscreen();
+    });
+
+    report.on("commandTriggered", function (command) {
+      console.log(command);
+    });
+
+
+    
+
+    $(function () {
+      var widthBuffer = 12;
+      var heightBuffer = 24;
+      var toolbarHeight = $("#toolbar").height();
+      $("#reportContainer").height($(window).height() - (heightBuffer + toolbarHeight ));
+      $("#reportContainer").width($(window).width() - widthBuffer);
+      $(window).resize(function () {
+        var toolbarHeight = $("#toolbar").height();
+        $("#reportContainer").height($(window).height() - (heightBuffer + toolbarHeight));
+        $("#reportContainer").width($(window).width() - widthBuffer);
+      });
+    });
+
+
+
+  </script>
+
+</body>
+</html>
